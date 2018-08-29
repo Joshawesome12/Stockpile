@@ -14,11 +14,14 @@ const getFileFromUserSelection = exports.getFileFromUserSelection = () => {
 
   if (!files) return;
 
-  const file = files[0];
-  const content = fs.readFileSync(file).toString();
-
-  mainWindow.webContents.send('file-opened', file, content);
+  return files[0];
 };
+
+const openFile = exports.openFile = (filePath) => {
+  const file = filePath || getFileFromUserSelection();
+  const content = fs.readFileSync(file).toString();
+  mainWindow.webContents.send('file-opened', file, content);
+}
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({ show: false });
