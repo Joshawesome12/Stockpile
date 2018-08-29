@@ -1,10 +1,27 @@
 const { app, BrowserWindow, dialog } = require('electron');
 const fs = require('fs');
 
-let mainWindow = null;
+const windows = new Set();
 
-const getFileFromUserSelection = exports.getFileFromUserSelection = () => {
-  const files = dialog.showOpenDialog(mainWindow,{
+const createWindow = exports.createWindow = () => {
+  let newWindow = new BrowserWindow({ show: false });
+
+  windows.add(newWindow);
+
+  newWindow.loadURL(`file://${__dirname}/index.html`);
+
+  newWindow.once('ready-to-show', () => {
+    newWindow.show();
+  });
+
+  newWindow.on('closed', () => {
+    windows.delete(newWindow);
+    newWindow = null;
+  });
+}
+
+const getFileFromUserSelection = exports.getFileFromUserSelection = (targetWindow) => {
+  const files = dialog.showOpenDialog(targetWindow,{
     properties:['openFile'],
     filters: [
       {name: 'Text Files', extensions:['txt','text']},
@@ -17,22 +34,12 @@ const getFileFromUserSelection = exports.getFileFromUserSelection = () => {
   return files[0];
 };
 
-const openFile = exports.openFile = (filePath) => {
-  const file = filePath || getFileFromUserSelection();
+const openFile = exports.openFile = (targetWindow, filePath) => {
+  const file = filePath || getFileFromUserSelection(targetWindow);
   const content = fs.readFileSync(file).toString();
-  mainWindow.webContents.send('file-opened', file, content);
+  targetWindow.webContents.send('file-opened', file, content);
 }
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ show: false });
-
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  createWindow();
 });
