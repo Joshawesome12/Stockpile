@@ -19,6 +19,10 @@ markdownView.addEventListener('keyup', (event) => {
 	renderMarkdownToHtml(event.target.value);
 });
 
+newFileButton.addEventListener('click', () => {
+	mainProcess.createWindow();
+});
+
 openFileButton.addEventListener('click',() => {
 	mainProcess.openFile(currentWindow);
 })
