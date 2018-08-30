@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const windows = new Set();
 
+
 const createWindow = exports.createWindow = (file) => {
   let newWindow = new BrowserWindow({ show: false });
 
@@ -64,6 +65,22 @@ const openFile = exports.openFile = (targetWindow, filePath) => {
   targetWindow.setTitle(`${file} - Fire Sale`);
   targetWindow.setRepresentedFilename(file);
 }
+
+const saveMarkdown = exports.saveMarkdown = (targetWindow, file, content) => {
+  if (!file) {
+    file = dialog.showSaveDialog(targetWindow, {
+      title: 'Save Markdown',
+      defaultPath: app.getPath('documents'),
+      filters: [
+        { name: 'Markdown Files', extensions: ['md', 'markdown'] }
+      ]
+    });
+  }
+  if (!file) return;
+
+  fs.writeFileSync(file, content);
+  targetWindow.webContents.send('file-opened', file, content);
+};
 
 app.on('ready', () => {
   createWindow();
