@@ -17,6 +17,7 @@ const renderMarkdownToHtml = (markdown) => {
 
 markdownView.addEventListener('keyup', (event) => {
 	renderMarkdownToHtml(event.target.value);
+	currentWindow.setDocumentEdited(true);
 });
 
 newFileButton.addEventListener('click', () => {
