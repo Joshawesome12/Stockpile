@@ -11,13 +11,17 @@ const saveMarkdownButton = document.querySelector('#save-markdown');
 const revertButton = document.querySelector('#revert');
 const saveHtmlButton = document.querySelector('#save-html');
 
+let filePath = null;
+let originalContent = '';
+
 const renderMarkdownToHtml = (markdown) => {
 	htmlView.innerHTML = marked(markdown, {sanitize: true});
 }
 
 markdownView.addEventListener('keyup', (event) => {
+	const currentContent = event.target.value;
 	renderMarkdownToHtml(event.target.value);
-	currentWindow.setDocumentEdited(true);
+	currentWindow.setDocumentEdited(currentContent !== originalContent);
 });
 
 newFileButton.addEventListener('click', () => {
@@ -29,6 +33,9 @@ openFileButton.addEventListener('click',() => {
 })
 
 ipcRenderer.on('file-opened', (event, file, content) => {
+	filePath = file;
+	originalContent = content;
+
 	markdownView.value = content;
 	renderMarkdownToHtml(content);
 });
