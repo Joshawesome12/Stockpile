@@ -22,6 +22,11 @@ const renderMarkdownToHtml = (markdown) => {
 const updateEditedState = (isEdited) => {
 	currentWindow.setDocumentEdited(isEdited);
 
+	saveMarkdownButton.disabled = !isEdited;
+	revertButton.disabled = !isEdited;
+
+
+
 	let title = 'Fire Sale';
 	if (filePath) title = `${filePath} - ${title}`;
 	if (isEdited) title = `${title} (Edited)`;
