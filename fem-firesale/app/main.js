@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const windows = new Set();
 
-const createWindow = exports.createWindow = () => {
+const createWindow = exports.createWindow = (file) => {
   let newWindow = new BrowserWindow({ show: false });
 
   windows.add(newWindow);
@@ -11,6 +11,7 @@ const createWindow = exports.createWindow = () => {
   newWindow.loadURL(`file://${__dirname}/index.html`);
 
   newWindow.once('ready-to-show', () => {
+    if (file) openFile(newWindow,file);
     newWindow.show();
   });
 
@@ -56,6 +57,9 @@ const getFileFromUserSelection = exports.getFileFromUserSelection = (targetWindo
 const openFile = exports.openFile = (targetWindow, filePath) => {
   const file = filePath || getFileFromUserSelection(targetWindow);
   const content = fs.readFileSync(file).toString();
+
+  app.addRecentDocument(file);
+
   targetWindow.webContents.send('file-opened', file, content);
   targetWindow.setTitle(`${file} - Fire Sale`);
   targetWindow.setRepresentedFilename(file);
@@ -63,4 +67,10 @@ const openFile = exports.openFile = (targetWindow, filePath) => {
 
 app.on('ready', () => {
   createWindow();
+});
+
+app.on('will-finish-launching',() => {
+  app.on('open-file', (event,filePath) => {
+    createWindow(filePath);
+  });
 });
