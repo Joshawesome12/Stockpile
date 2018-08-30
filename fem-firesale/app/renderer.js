@@ -59,3 +59,13 @@ ipcRenderer.on('file-opened', (event, file, content) => {
 	renderMarkdownToHtml(content);
 	updateEditedState(false);
 });
+
+ipcRenderer.on('file-changed', (event, file, content) => {
+	filePath = file;
+	originalContent = content;
+
+	markdownView.value = content;
+	renderMarkdownToHtml(content);
+	
+	updateEditedState(false);
+});
