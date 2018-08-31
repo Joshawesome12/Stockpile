@@ -61,8 +61,10 @@ openInDefaultButton.addEventListener('click', () => {
 	shell.openItem(filePath);
 })
 
-revertButton.addEventListener('click', () => {
+revertButton.addEventListener('click', (event) => {
 	//some code to revert the edited content
+	markdownView.value = originalContent;
+	renderMarkdownToHtml(markdownView.value);
 })
 
 ipcRenderer.on('file-opened', (event, file, content) => {
