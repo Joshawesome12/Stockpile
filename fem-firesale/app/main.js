@@ -100,7 +100,7 @@ const startWatchingFile = (targetWindow, file) => {
 const stopWatchingFile = (targetWindow) => {
   if (fileWatchers.has(targetWindow)){
     fileWatchers.get(targetWindow).close();
-    openFiles.delete(targetWindow);
+    fileWatchers.delete(targetWindow);
   }
 }
 

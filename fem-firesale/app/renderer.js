@@ -1,5 +1,5 @@
 const marked = require('marked');
-const { remote, ipcRenderer } = require('electron');
+const { remote, ipcRenderer, shell } = require('electron');
 const mainProcess = remote.require('./main');
 const currentWindow = remote.getCurrentWindow();
 
@@ -10,6 +10,8 @@ const openFileButton = document.querySelector('#open-file');
 const saveMarkdownButton = document.querySelector('#save-markdown');
 const revertButton = document.querySelector('#revert');
 const saveHtmlButton = document.querySelector('#save-html');
+const showFileButton = document.querySelector('#show-file');
+const openInDefaultButton = document.querySelector('#open-in-default');
 
 let filePath = null;
 let originalContent = '';
@@ -51,6 +53,18 @@ saveMarkdownButton.addEventListener('click', () => {
 	mainProcess.saveMarkdown(currentWindow, filePath, markdownView.value);
 })
 
+showFileButton.addEventListener('click', () => {
+	shell.showItemInFolder(filePath);
+})
+
+openInDefaultButton.addEventListener('click', () => {
+	shell.openItem(filePath);
+})
+
+revertButton.addEventListener('click', () => {
+	//some code to revert the edited content
+})
+
 ipcRenderer.on('file-opened', (event, file, content) => {
 	filePath = file;
 	originalContent = content;
@@ -66,6 +80,6 @@ ipcRenderer.on('file-changed', (event, file, content) => {
 
 	markdownView.value = content;
 	renderMarkdownToHtml(content);
-	
+
 	updateEditedState(false);
 });
