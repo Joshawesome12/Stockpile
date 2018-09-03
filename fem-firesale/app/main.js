@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog } = require('electron');
+const { app, BrowserWindow, dialog, Menu } = require('electron');
 const fs = require('fs');
 
 const windows = new Set();
@@ -105,6 +105,27 @@ const stopWatchingFile = (targetWindow) => {
 }
 
 app.on('ready', () => {
+  const template = [
+    {
+      label: 'Super Awesome',
+      submenu: [
+        {
+          label :'Mega Great',
+          click() { console.log('You clicked me!!'); }
+         }
+      ]
+    }
+  ];
+
+  if (process.platform === 'darwin'){
+    template.unshift({
+      label: 'No one will see'
+    });
+  }
+
+  const applicationMenu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(applicationMenu);
+
   createWindow();
 });
 
