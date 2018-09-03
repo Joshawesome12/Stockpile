@@ -1,0 +1,35 @@
+{
+  "name": "clipmaster-9000",
+  "version": "1.0.0",
+  "description": "A guide to building your first menubar application with Electron. ",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . 'Clipmaster 3000' --platform=all --arch=all --version=0.36.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevekinney/clipmaster-9000-tutorial.git"
+  },
+  "keywords": [
+    "electron",
+    "clipboard"
+  ],
+  "author": "Steve Kinney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevekinney/clipmaster-9000-tutorial/issues"
+  },
+  "homepage": "https://github.com/stevekinney/clipmaster-9000-tutorial#readme",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron-packager": "^8.2.0",
+    "electron-prebuilt": "^1.4.6",
+    "spectron": "^3.4.0"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "menubar": "^5.1.0",
+    "request": "^2.78.0"
+  }
+}
