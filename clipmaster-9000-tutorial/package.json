@@ -2,7 +2,7 @@
   "name": "clipmaster-9000",
   "version": "1.0.0",
   "description": "A guide to building your first menubar application with Electron. ",
-  "main": "app/main.js",
+  "main": "lib/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . 'Clipmaster 3000' --platform=all --arch=all --version=0.36.8"
