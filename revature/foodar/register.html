@@ -4,34 +4,79 @@
 	<meta charset='UTF-8'/>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
 	<meta http-equiv='X-UA-Compatible' content='ie=edge'/>
+	<link rel="stylesheet" href="style.css" type="text/css" />
 	<title>Register</title>
 </head>
 <body>
 	<h1>Foodar</h1>
 
-	<h2>Register</h2>
-	<h5>Please Fill Out the form below:</h5>
+	<h2 class="register">Register</h2>
 
-	<div>
-		<fieldset>
-			<legend>User Credentials:</legend>
-			<input placeholder="Username" type='text' name='username' required/><br/>
-			<input placeholder="Password"type='password' name='password' required/><br/>
-			<input placeholder="First Name"type='text' name='firstName' required/><br/>
-			<input placeholder="Last Name"type='text' name='lastName' required/>
-		</fieldset>
+	<div class='wrapper'>
+		<h5>Please Fill Out the form below:</h5>
+		<form class="info" action=''>
+				<fieldset>
+					<legend>User Credentials:</legend>
+					<div class='something'>
+						<input placeholder="Email" type='text' name='email' required/><br/>
+						<input placeholder="Password"type='password' name='password' required/><br/>
+					</div>
+					<div class='something'>
+						<input placeholder="First Name"type='text' name='firstName' required/><br/>
+						<input placeholder="Last Name"type='text' name='lastName' required/>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend>Address:</legend>
+					<div class='something'>
+						<input placeholder="Address"type='text' name='address' required/><br/>
+						<input placeholder="Street"type='text' name='street' required/><br/>
+					</div>
+					<div class='something'>
+						<input placeholder="City"type='text' name='city' required/><br/>
+						<input placeholder="Zipcode"type='text' name='zip' required/>
+					</div>
+				</fieldset>
+
+			<button type="button" name="register">Register</button>
+		</form>
 	</div>
 
-	<div>
-		<fieldset>
-			<legend>Adress</legend>
-			<input placeholder="Address"type='text' name='address' required/><br/>
-			<input placeholder="Street"type='text' name='street' required/><br/>
-			<input placeholder="City"type='text' name='city' required/><br/>
-			<input placeholder="Zipcode"type='text' name='zipcode' required/>
-		</fieldset>
+	<footer>
+		<div class='sections'>
+			<div class='navList'>
+				<div class="footTitle">
+					<h3>Site Map</h3>
+				</div>
+				<div class='line'></div>
+			<ul>
+				<li>Home</li>
+				<li>Register</li>
+				<li>About</li>
+			</ul>
+		</div>
+		<div class='navList'>
+			<div class="footTitle">
+				<h3>Legal</h3>
+			</div>
+			<div class='line'></div>
+			<ul>
+				<li>Privacy Policy</li>
+				<li>Terms & Conditions</li>
+			</ul>
+	</div>
+	<div class='navList'>
+		<div class="footTitle">
+			<h3>Food is Life :)</h3>
+		</div>
+		<div class='line'></div>
+</div>
+	</div>
+	<div class='copySection'>
+		<p class='copy'>&copy 2019. All right reserved.</p>
 	</div>
 
-	<button type="button" name="register">Register</button>
+	</footer>
 </body>
 </html>
